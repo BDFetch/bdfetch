@@ -1,0 +1,52 @@
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = ActivityMonitor
+ClassGuid   = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider    = %ManufacturerName%
+DriverVer   = 04/26/2026,1.0.0.0
+CatalogFile = BDFetch_Driver.cat
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir          = 12
+BDFetch_Driver.DriverFiles = 12
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+BDFetch_Driver.sys = 1,,
+
+[DefaultInstall.NTamd64]
+OptionDesc = %ServiceDescription%
+CopyFiles  = BDFetch_Driver.DriverFiles
+
+[DefaultInstall.NTamd64.Services]
+AddService = %ServiceName%,,BDFetch_Driver.Service
+
+[BDFetch_Driver.DriverFiles]
+BDFetch_Driver.sys
+
+[BDFetch_Driver.Service]
+DisplayName      = %ServiceName%
+Description      = %ServiceDescription%
+ServiceBinary    = %12%\BDFetch_Driver.sys
+Dependencies     = FltMgr
+ServiceType      = 2
+StartType        = 3
+ErrorControl     = 1
+LoadOrderGroup   = "FSFilter Activity Monitor"
+AddReg           = BDFetch_Driver.AddReg
+
+[BDFetch_Driver.AddReg]
+HKR,"Parameters","DebugFlags",0x00010001,0x0
+HKR,"Parameters","SupportedFeatures",0x00010001,0x3
+HKR,"Parameters\Instances","DefaultInstance",0x00000000,"BDFetch Instance"
+HKR,"Parameters\Instances\BDFetch Instance","Altitude",0x00000000,"320000"
+HKR,"Parameters\Instances\BDFetch Instance","Flags",0x00010001,0x0
+
+[Strings]
+ManufacturerName   = "BDFetch Security"
+DiskName           = "BDFetch_Driver Source Disk"
+ServiceName        = "BDFetch_Driver"
+ServiceDescription = "BDFetch Security Driver"
