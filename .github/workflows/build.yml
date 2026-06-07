@@ -1,0 +1,23 @@
+name: Build BDFetch Driver
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-2022
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+      
+      - name: 编译驱动
+        run: |
+          cd Plugins/Filter
+          msbuild BDFetch_Driver.sln /p:Configuration=Release /p:Platform=x64
+      
+      - name: 上传驱动
+        uses: actions/upload-artifact@v4
+        with:
+          name: BDFetch_Driver
+          path: Plugins/Filter/x64/Release/BDFetch_Driver.sys
