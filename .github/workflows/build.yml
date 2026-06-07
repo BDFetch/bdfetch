@@ -13,11 +13,11 @@ jobs:
       
       - name: 编译驱动
         run: |
-          cd Plugins/Filter
+          cd BDFetch-main/Plugins/Filter
           msbuild BDFetch_Driver.sln /p:Configuration=Release /p:Platform=x64
       
       - name: 上传驱动
         uses: actions/upload-artifact@v4
         with:
           name: BDFetch_Driver
-          path: Plugins/Filter/x64/Release/BDFetch_Driver.sys
+          path: BDFetch-main/Plugins/Filter/x64/Release/BDFetch_Driver.sys
