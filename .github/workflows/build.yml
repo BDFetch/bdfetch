@@ -11,6 +11,11 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
       
+      - name: 设置 Visual Studio 环境
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      
       - name: 编译驱动
         run: |
           cd BDFetch-main/Plugins/Filter
